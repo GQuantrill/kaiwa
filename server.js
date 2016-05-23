@@ -349,7 +349,8 @@ var clientApp = new Moonboots({
             debug: false
         },
         stylesheets: [
-            __dirname + '/public/css/client.css',
+            __dirname + '/public/css/light.css',
+            __dirname + '/public/css/dark.css',
             __dirname + '/public/css/jquery.oembed.css',
             __dirname + '/public/css/jquery-impromptu.css'
         ],

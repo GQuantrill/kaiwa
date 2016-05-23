@@ -8,6 +8,7 @@ var LDAPUserItem = require('../views/ldapUserItem');
 module.exports = BasePage.extend({
     template: templates.pages.settings,
     classBindings: {
+        loadDarkTheme: 'loadDarkTheme',
         shouldAskForAlertsPermission: '.enableAlerts',
         soundEnabledClass: '.soundNotifs',
         hasLdapUsers: '#ldapSettings',
@@ -20,6 +21,7 @@ module.exports = BasePage.extend({
         status: '.status'
     },
     events: {
+        'click .loadDarkTheme': 'loadDarkTheme',
         'click .enableAlerts': 'enableAlerts',
         'click .installFirefox': 'installFirefox',
         'click .soundNotifs': 'handleSoundNotifs',
@@ -40,6 +42,19 @@ module.exports = BasePage.extend({
         this.renderAndBind();
         this.renderCollection(app.ldapUsers, LDAPUserItem, this.$('#ldapUsers'));
         return this;
+    },
+    loadDarkTheme: function() {
+        if (document.getElementById("themeActive") == null) {
+            var fileref=document.createElement("link")
+            fileref.setAttribute("rel", "stylesheet")
+            fileref.setAttribute("type", "text/css")
+            fileref.setAttribute("href", "/css/kaiwaDark.css")
+            fileref.setAttribute("id", "themeActive")
+            document.getElementsByTagName("head")[0].appendChild(fileref)
+        }
+        else {
+            $('link[rel=stylesheet][href~="/css/kaiwaDark.css"]').remove();
+        }
     },
     enableAlerts: function () {
         if (app.notifications.permissionNeeded()) {
